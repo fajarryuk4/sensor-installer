@@ -1,0 +1,14 @@
+[Unit]
+Description=Mata Elang Snort Sensor
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+
+ExecStart=/usr/bin/docker start mataelang-sensor
+ExecStop=/usr/bin/docker stop mataelang-sensor
+ExecReload=/usr/bin/docker restart mataelang-sensor
+
+[Install]
+WantedBy=multi-user.target
