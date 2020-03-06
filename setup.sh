@@ -53,13 +53,16 @@ fi
 
 if [[ $RULE_CHOICE -eq 2 ]]; then
   read -p "Input your oinkcode here : " OINKCODE
-  /usr/bin/docker build --build-arg OINKCODE=${OINKCODE} -f ${SCRIPTPATH}/dockerfiles/snort.dockerfile -t mataelang-snort ${SCRIPTPATH}/
+  /usr/bin/docker build --no-cache --build-arg OINKCODE=${OINKCODE} -f ${SCRIPTPATH}/dockerfiles/snort.dockerfile -t mataelang-snort ${SCRIPTPATH}/
 fi
 
 systemctl daemon-reload
+echo "Registering Mata Elang sensor service..."
 systemctl enable mataelang-snort.service
+echo "Creating container..."
 /usr/bin/docker create --name mataelang-sensor --network host -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone --env-file /etc/mataelang-sensor/sensor.env mataelang-snort
+echo "Starting sensor..."
 systemctl start mataelang-snort.service
 
 echo "Setup completed."
-echo -e "You can start the service now with the following command : \n\tsudo systemctl start mataelang-snort"
+echo -e "You can start/stop/restart the service now with the following command : \n\tsudo systemctl start/stop/restart mataelang-snort"
