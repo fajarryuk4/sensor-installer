@@ -1,0 +1,14 @@
+[Unit]
+Description=Mata Elang Netflowmeter Sensor
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+
+ExecStart=/usr/bin/docker start --attach mataelang-netflowmeter
+ExecStop=/usr/bin/docker stop mataelang-netflowmeter
+ExecReload=/usr/bin/docker restart mataelang-netflowmeter
+
+[Install]
+WantedBy=multi-user.target
