@@ -39,6 +39,6 @@ if [[ $RULE_CHOICE -eq 2 ]]; then
 fi
 
 echo "Re-creating container..."
-/usr/bin/docker create --name mataelang-sensor --network host -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone --env-file /etc/mataelang-sensor/sensor.env mataelang-snort
+/usr/bin/docker create --name mataelang-snort --network host -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone --env-file /etc/mataelang-sensor/sensor.env mataelang-snort
 echo "Starting sensor..."
 systemctl start mataelang-snort.service
